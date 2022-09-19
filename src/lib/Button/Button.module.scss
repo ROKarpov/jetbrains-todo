@@ -1,0 +1,13 @@
+@import "./bootstrap.scss";
+
+.button {
+  @extend .btn;
+}
+
+.sm {
+  @extend .btn-sm;
+}
+
+.lg {
+  @extend .btn-lg;
+}

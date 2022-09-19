@@ -1,0 +1,42 @@
+@import "./bootstrap.scss";
+
+.filled {
+  @extend .btn-primary;
+}
+
+.outlined {
+  @include button-variant(
+    $background: transparent,
+    $border: $primary,
+    $color: $primary,
+    $hover-background: transparent,
+    $hover-border: shade-color($primary, $btn-hover-color-shade-amount),
+    $hover-color: shade-color($primary, $btn-hover-color-shade-amount),
+    $active-background: transparent,
+    $active-border: shade-color($primary, $btn-active-color-shade-amount),
+    $active-color: shade-color($primary, $btn-active-color-shade-amount),
+    $disabled-background: transparent,
+    $disabled-border:
+      tint-color($primary, $btn-no-container-disabled-color-tint-amount),
+    $disabled-color:
+      tint-color($primary, $btn-no-container-disabled-color-tint-amount)
+  );
+}
+
+.no-container {
+  @include button-variant(
+    $background: transparent,
+    $border: transparent,
+    $color: $primary,
+    $hover-background: transparent,
+    $hover-border: transparent,
+    $hover-color: shade-color($primary, $btn-hover-color-shade-amount),
+    $active-background: transparent,
+    $active-border: transparent,
+    $active-color: shade-color($primary, $btn-active-color-shade-amount),
+    $disabled-background: transparent,
+    $disabled-border: transparent,
+    $disabled-color:
+      tint-color($primary, $btn-no-container-disabled-color-tint-amount)
+  );
+}
