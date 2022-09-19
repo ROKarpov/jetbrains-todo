@@ -9,7 +9,7 @@ export type ButtonType = "filled" | "outlined" | "no-container";
 export type ButtonSize = "sm" | "md" | "lg";
 
 type Props = {
-  onClick: () => void;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   type?: ButtonType;
   size?: ButtonSize;
   className?: string;
@@ -23,11 +23,6 @@ const Button: React.FC<Props> = ({
   className,
   children,
 }) => {
-  const handleClick = useCallback<MouseEventHandler<HTMLButtonElement>>(
-    () => onClick(),
-    [onClick]
-  );
-
   return (
     <button
       type="button"
@@ -37,7 +32,7 @@ const Button: React.FC<Props> = ({
         containerStyles[type],
         className
       )}
-      onClick={handleClick}
+      onClick={onClick}
     >
       {children}
     </button>
