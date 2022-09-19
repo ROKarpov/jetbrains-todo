@@ -2,7 +2,6 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList } from "react-window";
-import Panel from "../Panel/Panel";
 import styles from "./List.module.scss";
 
 type Props = {
@@ -17,7 +16,6 @@ const List: React.FC<Props> = ({ items, className, row, rowHeight }) => (
     {({ width, height }) => {
       return (
         <FixedSizeList
-          className={className}
           width={width}
           height={height}
           itemSize={rowHeight}

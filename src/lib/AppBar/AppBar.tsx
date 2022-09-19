@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import Container from "react-bootstrap/Container";
-import cn from "classnames";
 import Icon, { IconType } from "../Icon/Icon";
 
 import "./bootstrap.scss";
 import styles from "./AppBar.module.scss";
+import Button from "../Button/Button";
+import Container from "../Container/Container";
 
 export type ActionDescription = {
   iconType: IconType;
@@ -27,13 +27,16 @@ type Props = {
   setSelectedTabId: (id: string) => void;
 
   actions?: ActionDescription[];
+
+  className?: string;
 };
 
-export const AppBar: React.FC<Props> = ({
+const AppBar: React.FC<Props> = ({
   tabs,
   selectedTabId,
   setSelectedTabId,
   actions = EMPTY_ACTIONS,
+  className,
 }) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -45,26 +48,28 @@ export const AppBar: React.FC<Props> = ({
       expanded={expanded}
       variant="light"
       onToggle={setExpanded}
+      className={className}
     >
       <Container>
-        <div className={cn(styles.wrapper, "d-flex")}>
+        <div className={styles.wrapper}>
           <Navbar.Toggle className={styles.hamburger}>
             <Icon type={expanded ? "close" : "list"} />
           </Navbar.Toggle>
           <Navbar.Brand>ToDo List</Navbar.Brand>
         </div>
-        <div className={cn("d-flex", styles["action-wrapper"])}>
+        <div className={styles.actionWrapper}>
           {actions.map((action) => (
-            <button
+            <Button
               key={action.iconType}
-              type="button"
+              type="no-container"
+              size="lg"
               className={styles.action}
               onClick={() => {
                 action.action();
               }}
             >
               <Icon type={action.iconType} />
-            </button>
+            </Button>
           ))}
         </div>
         <Navbar.Collapse>
@@ -84,4 +89,4 @@ export const AppBar: React.FC<Props> = ({
   );
 };
 
-//export default AppBar;
+export default AppBar;

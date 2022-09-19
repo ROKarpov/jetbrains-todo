@@ -12,7 +12,7 @@ export default {
   },
   args: {
     type: "list",
-    size: "medium",
+    size: "md",
   },
 } as ComponentMeta<typeof Icon>;
 

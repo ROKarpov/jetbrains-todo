@@ -1,0 +1,30 @@
+@import "../../styles/bootstrap_core.scss";
+
+$wrapper-gap: map-get($spacers, 1);
+
+$button-padding: map-get($spacers, 1);
+
+.hamburger:global(.navbar-toggler) {
+  border-width: 0;
+  background-color: transparent;
+  padding: $button-padding;
+  box-shadow: none;
+}
+
+.action {
+  padding: $button-padding;
+}
+
+.wrapper {
+  @extend .d-flex;
+
+  gap: $wrapper-gap;
+}
+
+.actionWrapper {
+  @extend .wrapper;
+
+  @include media-breakpoint-up(md) {
+    order: 10;
+  }
+}
