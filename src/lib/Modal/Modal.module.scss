@@ -1,6 +1,6 @@
 @import "../../styles/bootstrap_core.scss";
 
-.headerButton {
+.headerItem {
   @extend .d-block;
   @extend .d-md-none;
 }
@@ -13,6 +13,8 @@
 
 .headerContainer {
   @extend .d-flex;
+  @extend .d-md-none;
+
   @extend .flex-row;
 
   gap: map-get($spacers, 1);

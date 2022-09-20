@@ -2,7 +2,6 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import List from "./List";
-import { createToDoItem } from "../../api/utils";
 
 export default {
   title: "Components/List",
