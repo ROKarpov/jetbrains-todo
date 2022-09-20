@@ -1,0 +1,24 @@
+@import "../../styles/bootstrap_core.scss";
+
+.headerButton {
+  @extend .d-block;
+  @extend .d-md-none;
+}
+
+.title {
+  @extend .me-auto;
+  @extend .ms-2;
+  @extend .my-0;
+}
+
+.headerContainer {
+  @extend .d-flex;
+  @extend .flex-row;
+
+  gap: map-get($spacers, 1);
+}
+
+.footerContainer {
+  @extend .d-none;
+  @extend .d-md-flex;
+}
