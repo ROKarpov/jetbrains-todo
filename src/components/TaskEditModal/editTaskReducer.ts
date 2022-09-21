@@ -5,6 +5,7 @@ export type EditTaskState = ToDoItemCreateProps & {
   hasDescriptionErrors: boolean;
   shouldShowDescriptionErrors: boolean;
   changed: boolean;
+  lastChangeDate?: Date;
 };
 
 type EditTaskActionType =
@@ -29,6 +30,7 @@ export const mapTaskToEditTaskState: (item: ToDoItem | null) => EditTaskState =
             shouldShowDescriptionErrors: true,
             hasDescriptionErrors: isEmpty(item.description),
             changed: false,
+            lastChangeDate: item.lastChangeDate,
           }
         : {
             description: "",

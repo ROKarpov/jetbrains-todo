@@ -8,7 +8,11 @@ import Input from "../../../lib/Input/Input";
 
 import styles from "./TaskEditForm.module.scss";
 import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
 import { EditTaskAction, EditTaskState } from "../editTaskReducer";
+
+dayjs.extend(relativeTime);
 
 type Props = {
   state: EditTaskState;
@@ -79,7 +83,9 @@ const TaskEditForm: React.FC<Props> = ({ state, dispatch }) => {
         className={styles.comments}
         onChange={handleCommentsChange}
       />
-      {/* {task && <div>Last Update: {task?.lastChangeDate.toLocaleString()}</div>} */}
+      {state.lastChangeDate && (
+        <div>Last Update: {dayjs().from(state.lastChangeDate)}</div>
+      )}
     </Form>
   );
 };
