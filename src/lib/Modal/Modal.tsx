@@ -5,7 +5,7 @@ import Icon, { IconType } from "../Icon/Icon";
 
 import "./bootstrap.scss";
 import styles from "./Modal.module.scss";
-import { isEmpty } from "./utils";
+import { isEmpty } from "../../utils/utils";
 
 export type ModalFooterAction = {
   label: string;
@@ -23,8 +23,8 @@ type Props = {
   setOpen: (open: boolean) => void;
   title?: string;
   children: React.ReactNode;
-  footerActions: ModalFooterAction[];
-  headerActions: ModalHeaderAction[];
+  footer: React.ReactNode;
+  header: React.ReactNode;
 };
 
 const Modal: React.FC<Props> = ({
@@ -32,8 +32,8 @@ const Modal: React.FC<Props> = ({
   setOpen,
   title,
   children,
-  footerActions,
-  headerActions,
+  footer,
+  header,
 }) => {
   const handleModalClose = useCallback(() => setOpen(false), [setOpen]);
   const handleCloseClick: MouseEventHandler<HTMLButtonElement> = useCallback(
@@ -61,32 +61,13 @@ const Modal: React.FC<Props> = ({
         {title && (
           <BSModal.Title className={styles.title}>{title}</BSModal.Title>
         )}
-        <div className={styles.headerContainer}>
-          {headerActions.map((action) => (
-            <Button
-              key={action.iconType}
-              onClick={action.onClick}
-              type="no-container"
-              size="lg"
-            >
-              <Icon type={action.iconType} />
-            </Button>
-          ))}
-        </div>
+        {header && <div className={styles.headerContainer}>{header}</div>}
       </BSModal.Header>
 
       <BSModal.Body>{children}</BSModal.Body>
-      {footerActions && footerActions.length > 0 && (
+      {footer && (
         <BSModal.Footer className={styles.footerContainer}>
-          {footerActions.map((action) => (
-            <Button
-              key={action.label}
-              onClick={action.onClick}
-              type={action.buttonType}
-            >
-              {action.label}
-            </Button>
-          ))}
+          {footer}
         </BSModal.Footer>
       )}
     </BSModal>

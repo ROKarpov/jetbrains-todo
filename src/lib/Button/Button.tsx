@@ -12,6 +12,7 @@ type Props = {
   onClick: MouseEventHandler<HTMLButtonElement>;
   type?: ButtonType;
   size?: ButtonSize;
+  disabled?: boolean;
   className?: string;
   children: React.ReactNode;
 };
@@ -20,12 +21,14 @@ const Button: React.FC<Props> = ({
   onClick,
   type = "filled",
   size = "md",
+  disabled,
   className,
   children,
 }) => {
   return (
     <button
       type="button"
+      disabled={disabled}
       className={cn(
         styles.button,
         styles[size],

@@ -1,28 +1,38 @@
-import React from "react";
+import React, { ChangeEventHandler, FocusEventHandler } from "react";
 import { Form } from "react-bootstrap";
 
 import "./bootstrap.scss";
 
 type Props = {
   id: string;
+  value: string | string[] | number;
   label?: string;
   type?: string;
   multiline?: boolean;
   readonly?: boolean;
   helperText?: string;
+  hasError?: boolean;
   children?: React.ReactNode;
   className?: string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  onFocus?: FocusEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
 };
 
 const Input: React.FC<Props> = ({
-  className,
   id,
+  value,
+  className,
   label,
   helperText,
   multiline = false,
   readonly = false,
+  hasError,
   type = "text",
   children,
+  onChange,
+  onFocus,
+  onBlur,
 }) => {
   const control = (
     <Form.Control
@@ -32,6 +42,11 @@ const Input: React.FC<Props> = ({
       type={type}
       aria-describedby={helperText ? `${id}-help-text` : undefined}
       placeholder={label}
+      value={value}
+      isInvalid={hasError}
+      onBlur={onBlur}
+      onChange={onChange}
+      onFocus={onFocus}
     >
       {children}
     </Form.Control>
