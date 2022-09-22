@@ -19,7 +19,7 @@ export default {
     items: Array.from({ length: 1000 }, (_, i) =>
       createToDoItem({
         description: `Task #${i + 1}`,
-        isCompleted: i % 2 === 0,
+        completeDate: i % 2 === 0 ? new Date() : null,
         completeDueToDate: i % 2 === 0 ? new Date() : undefined,
       })
     ),

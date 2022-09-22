@@ -6,14 +6,14 @@ const FILE_TYPE = "application/json";
 
 export const createToDoItem: (props: ToDoItemCreateProps) => ToDoItem = ({
   description,
-  isCompleted = false,
+  completeDate = null,
   comments,
   completeDueToDate,
 }) => {
   return {
     id: uuid(),
     description: description,
-    isCompleted: isCompleted,
+    completeDate: completeDate,
     lastChangeDate: new Date(),
     comments: comments,
     completeDueToDate: completeDueToDate,
@@ -49,7 +49,7 @@ export function isToDoItem(object: any): object is ToDoItem {
   return (
     item.id !== undefined &&
     item.description !== undefined &&
-    item.isCompleted !== undefined &&
+    item.completeDate !== undefined &&
     item.lastChangeDate !== undefined
   );
 }

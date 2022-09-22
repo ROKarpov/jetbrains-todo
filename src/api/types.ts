@@ -1,7 +1,7 @@
 export type ToDoItem = {
   id: string;
   description: string;
-  isCompleted: boolean;
+  completeDate: Date | null;
   lastChangeDate: Date;
   comments?: string;
   completeDueToDate?: Date;

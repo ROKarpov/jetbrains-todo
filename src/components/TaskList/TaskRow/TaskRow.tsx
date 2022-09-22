@@ -31,7 +31,7 @@ const TaskRow: React.FC<Props> = ({ item, onItemClick, onItemInfoClick }) => {
     <div className={styles.content} onClick={handleRowClick}>
       <Checkbox
         readOnly
-        checked={item.isCompleted}
+        checked={item.completeDate != null}
         ariaLabel={`Completion of ${item.description}`}
       />
       <div>

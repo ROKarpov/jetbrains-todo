@@ -24,7 +24,7 @@ describe("api utils", () => {
 
     test("creates item uncompleted by default", () => {
       const item = createToDoItem({ description: "Description" });
-      expect(item.isCompleted).toBeFalsy();
+      expect(item.completeDate).toBeFalsy();
     });
 
     test("specifies last update date", () => {

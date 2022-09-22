@@ -28,7 +28,6 @@ export const EditTask = Template.bind({});
 EditTask.args = {
   task: createToDoItem({
     description: `Task #1`,
-    isCompleted: false,
     completeDueToDate: new Date(),
   }),
 };
