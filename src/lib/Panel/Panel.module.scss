@@ -1,0 +1,81 @@
+@import "../../styles/bootstrap_core.scss";
+
+.bg-0 {
+  --bs-bg-opacity: 0;
+  @extend .bg-primary;
+}
+
+.bg-25 {
+  --bs-bg-opacity: 0.25;
+  @extend .bg-primary;
+}
+
+.bg-50 {
+  --bs-bg-opacity: 0.5;
+  @extend .bg-primary;
+}
+
+.bg-75 {
+  --bs-bg-opacity: 0.75;
+  @extend .bg-primary;
+}
+
+.bg-100 {
+  --bs-bg-opacity: 1;
+  @extend .bg-primary;
+}
+
+%border-base {
+  @extend .border;
+  @extend .border-primary;
+}
+
+.border-xs {
+  @extend %border-base;
+  @extend .border-1;
+}
+
+.border-sm {
+  @extend %border-base;
+  @extend .border-2;
+}
+
+.border-md {
+  @extend %border-base;
+  @extend .border-3;
+}
+
+.border-lg {
+  @extend %border-base;
+  @extend .border-4;
+}
+
+.border-xl {
+  @extend %border-base;
+  @extend .border-5;
+}
+
+.radius-0 {
+  @extend .rounded-0;
+}
+.radius-xs {
+  @extend .rounded-1;
+}
+.radius-sm {
+  @extend .rounded-2;
+}
+.radius-md {
+  @extend .rounded-3;
+}
+.radius-lg {
+  @extend .rounded-4;
+}
+.radius-xl {
+  @extend .rounded-5;
+}
+.radius-pill {
+  @extend .rounded-pill;
+}
+.radius-circle {
+  @extend .rounded-circle;
+}

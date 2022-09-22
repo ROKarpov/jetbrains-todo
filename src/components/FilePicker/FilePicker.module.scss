@@ -1,0 +1,14 @@
+.container {
+  padding: 2.5rem 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input {
+  display: none;
+}
+
+.text {
+  user-select: none;
+}
