@@ -23,8 +23,8 @@ type Props = {
   setOpen: (open: boolean) => void;
   title?: string;
   children: React.ReactNode;
-  footer: React.ReactNode;
-  header: React.ReactNode;
+  footer?: React.ReactNode;
+  header?: React.ReactNode;
 };
 
 const Modal: React.FC<Props> = ({
