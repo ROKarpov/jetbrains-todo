@@ -1,10 +1,21 @@
 import { v4 as uuid } from "uuid";
 
-import { ToDoItem, ToDoItemCreateProps, ToDoItemUpdateProps } from "./types";
+import {
+  TaskFilterType,
+  ToDoTask,
+  ToDoTaskInsertProps,
+  ToDoTaskUpdateProps,
+} from "./types";
 
 const FILE_TYPE = "application/json";
 
-export const createToDoItem: (props: ToDoItemCreateProps) => ToDoItem = ({
+const DEFAULT_TASK_FILTER = () => true;
+const TASK_FILTERS: { [id: string]: (task: ToDoTask) => boolean } = {
+  uncompleted_tasks: (task) => task.completeDate === null,
+  completed_tasks: (task) => task.completeDate !== null,
+};
+
+export const createToDoItem: (props: ToDoTaskInsertProps) => ToDoTask = ({
   description,
   completeDate = null,
   comments,
@@ -21,13 +32,13 @@ export const createToDoItem: (props: ToDoItemCreateProps) => ToDoItem = ({
 };
 
 export const updateToDoItem: (
-  item: ToDoItem,
-  props: ToDoItemUpdateProps
-) => ToDoItem = (item, props) => {
+  item: ToDoTask,
+  props: ToDoTaskUpdateProps
+) => ToDoTask = (item, props) => {
   return { ...item, ...props, lastChangeDate: new Date() };
 };
 
-export const readToDoList: (src: Blob) => Promise<ToDoItem[]> = async (src) => {
+export const readToDoList: (src: Blob) => Promise<ToDoTask[]> = async (src) => {
   if (src.type !== FILE_TYPE) {
     throw "Cannot read non-json files.";
   }
@@ -39,13 +50,13 @@ export const readToDoList: (src: Blob) => Promise<ToDoItem[]> = async (src) => {
   return object;
 };
 
-export const writeToDoList: (list: ToDoItem[]) => Blob = (list) => {
+export const writeToDoList: (list: ToDoTask[]) => Blob = (list) => {
   const string = JSON.stringify(list);
   return new File([string], "test", { type: FILE_TYPE });
 };
 
-export function isToDoItem(object: any): object is ToDoItem {
-  const item = <ToDoItem>object;
+export function isToDoItem(object: any): object is ToDoTask {
+  const item = <ToDoTask>object;
   return (
     item.id !== undefined &&
     item.description !== undefined &&
@@ -54,10 +65,18 @@ export function isToDoItem(object: any): object is ToDoItem {
   );
 }
 
-export function isToDoItemArray(object: any): object is ToDoItem[] {
+export function isToDoItemArray(object: any): object is ToDoTask[] {
   if (Array.isArray(object)) {
     return object.reduce((prev, obj) => prev && isToDoItem(obj), true);
   } else {
     return false;
   }
 }
+
+export const getTaskFilter: (
+  filterType?: TaskFilterType
+) => (task: ToDoTask) => boolean = (filterType) => {
+  return filterType
+    ? TASK_FILTERS[filterType] ?? DEFAULT_TASK_FILTER
+    : DEFAULT_TASK_FILTER;
+};

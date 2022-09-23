@@ -10,7 +10,9 @@ export default {
     // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
     layout: "fullscreen",
   },
-  argTypes: {},
+  argTypes: {
+    className: { table: { disable: true } },
+  },
   args: {
     series: [
       {

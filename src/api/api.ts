@@ -1,13 +1,17 @@
-import { ToDoItem, ToDoItemCreateProps, ToDoItemUpdateProps } from "./types";
+import createMockToDoListApi from "./mockApi";
+import { createToDoItem } from "./utils";
 
-interface ToDoListApi {
-  list: () => Promise<ToDoItem[]>;
-  addToDoItem: (props: ToDoItemCreateProps) => Promise<ToDoItem>;
-  updateToDoItem: (id: string, changes: ToDoItemUpdateProps) => Promise<void>;
-  deleteToDoItem: (id: string) => Promise<void>;
+const api =
+  //process.env.NODE_ENV === "development"
+  /*? */ createMockToDoListApi(
+    Array.from({ length: 1000 }, (_, i) =>
+      createToDoItem({
+        description: `Task #${i + 1}`,
+        completeDate: i % 2 ? new Date() : null,
+        completeDueToDate: i % 3 ? new Date() : undefined,
+      })
+    )
+  );
+//: null;
 
-  import: (src: Blob) => Promise<void>;
-  export: () => Promise<Blob>;
-}
-
-export default ToDoListApi;
+export default api;

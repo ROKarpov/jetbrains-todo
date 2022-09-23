@@ -47,9 +47,10 @@ export type Series = {
 
 type Props = {
   series: Series[];
+  className?: string;
 };
 
-const Chart: React.FC<Props> = ({ series }) => {
+const Chart: React.FC<Props> = ({ series, className }) => {
   const dataAdapeter = useMemo(() => {
     const labels: (string | number)[] = [];
     const lblSet = series.reduce((prev, current) => {
@@ -77,7 +78,14 @@ const Chart: React.FC<Props> = ({ series }) => {
     };
   }, [series]);
 
-  return <ReactChart type="bar" data={dataAdapeter} />;
+  return (
+    <ReactChart
+      type="bar"
+      data={dataAdapeter}
+      className={className}
+      options={{ responsive: true, maintainAspectRatio: false }}
+    />
+  );
 };
 
 export default Chart;

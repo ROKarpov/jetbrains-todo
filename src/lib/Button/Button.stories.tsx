@@ -30,7 +30,7 @@ Default.args = {
 
 export const IconButton = Template.bind({});
 IconButton.args = {
-  children: <Icon type="info-circle" />,
+  children: <Icon type="pencil" />,
 };
 
 export { Default as Button };

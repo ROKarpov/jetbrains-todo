@@ -9,6 +9,7 @@ import Button from "../../lib/Button/Button";
 import styles from "./FilePicker.module.scss";
 import cn from "classnames";
 import Panel from "../../lib/Panel/Panel";
+import Typography from "../../lib/Typography/Typography";
 
 type Props = {
   onFileSelected: (file: Blob) => void;
@@ -68,7 +69,7 @@ const FilePicker: React.FC<Props> = ({ onFileSelected, className }) => {
     <Panel
       backgroundOpacity={hovered ? "25" : "0"}
       borderRadius="xl"
-      borderWidth="sm"
+      borderWidth="0"
       className={className}
     >
       <div
@@ -78,10 +79,12 @@ const FilePicker: React.FC<Props> = ({ onFileSelected, className }) => {
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
       >
-        <div className={cn("fs-4", "fw-bold", styles.text)}>Drag File Here</div>
-        <div className={cn("fs-5", styles.text)}>
-          <small className="text-muted">Or</small>
-        </div>
+        <Typography fontSize={4} fontWeight="bold" className={styles.text}>
+          Drag File Here
+        </Typography>
+        <Typography fontSize={5} small muted className={styles.text}>
+          Or
+        </Typography>
         <Button
           disabled={hovered}
           onClick={() => {

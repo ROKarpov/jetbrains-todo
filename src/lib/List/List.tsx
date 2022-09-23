@@ -23,10 +23,10 @@ const List: React.FC<Props> = ({ items, className, row, rowHeight }) => (
         >
           {({ index, style }) => (
             <div style={style} className={styles.row}>
-              <Container className={styles.contentWrapper}>
+              <div className={styles.contentWrapper}>
                 {row(items[index], index)}
                 <hr className={styles.separator} />
-              </Container>
+              </div>
             </div>
           )}
         </FixedSizeList>

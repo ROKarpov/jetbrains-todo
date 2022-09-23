@@ -2,7 +2,8 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import TaskChart from "./TaskChart";
-import { makeData } from "./mockUtils";
+import { makeData } from "../../pages/ToDoListPage/mockUtils";
+import { collectStatistics } from "../../pages/ToDoListPage/utils";
 
 export default {
   title: "Components/Task Chart",
@@ -11,10 +12,12 @@ export default {
     // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
     layout: "fullscreen",
   },
-  argTypes: {},
+  argTypes: {
+    setType: { action: "setType called" },
+  },
   args: {
-    items: makeData(),
     type: "last-week",
+    statistics: collectStatistics(makeData(), "last-week"),
   },
 } as ComponentMeta<typeof TaskChart>;
 

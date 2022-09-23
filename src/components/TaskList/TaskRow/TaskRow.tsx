@@ -1,15 +1,15 @@
 import React, { MouseEventHandler, useCallback } from "react";
 import { Container, Form } from "react-bootstrap";
 import Button from "../../../lib/Button/Button";
-import { ToDoItem } from "../../../api/types";
+import { ToDoTask } from "../../../api/types";
 import Icon from "../../../lib/Icon/Icon";
 import styles from "./TaskRow.module.scss";
 import Checkbox from "../../../lib/Checkbox/Checkbox";
 
 type Props = {
-  item: ToDoItem;
-  onItemClick: (item: ToDoItem) => void;
-  onItemInfoClick: (item: ToDoItem) => void;
+  item: ToDoTask;
+  onItemClick: (item: ToDoTask) => void;
+  onItemInfoClick: (item: ToDoTask) => void;
 };
 
 const TaskRow: React.FC<Props> = ({ item, onItemClick, onItemInfoClick }) => {
@@ -41,14 +41,24 @@ const TaskRow: React.FC<Props> = ({ item, onItemClick, onItemInfoClick }) => {
         )}
       </div>
 
-      <Button
-        onClick={handleInfoClick}
-        type="no-container"
-        size="lg"
-        className={styles.infoIcon}
-      >
-        <Icon type="info-circle" />
-      </Button>
+      <div className={styles.actionContainer}>
+        <Button
+          onClick={handleInfoClick}
+          type="no-container"
+          size="lg"
+          className={styles.infoIcon}
+        >
+          <Icon type="pencil" />
+        </Button>
+        <Button
+          onClick={handleInfoClick}
+          type="no-container"
+          size="lg"
+          className={styles.infoIcon}
+        >
+          <Icon type="trash" />
+        </Button>
+      </div>
     </div>
   );
 };

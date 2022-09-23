@@ -1,31 +1,32 @@
-import ToDoListApi from "./api";
-import { ToDoItem, ToDoItemCreateProps, ToDoItemUpdateProps } from "./types";
+import ToDoListApi from "./interfaces";
+import { ToDoTask, ToDoTaskInsertProps, ToDoTaskUpdateProps } from "./types";
 import {
   createToDoItem,
+  getTaskFilter,
   readToDoList,
   updateToDoItem,
   writeToDoList,
 } from "./utils";
 
-const DEFAULT_INITIAL_ITEMS: ToDoItem[] = [];
+const DEFAULT_INITIAL_ITEMS: ToDoTask[] = [];
 
-const createMockToDoListApi: (initialItems?: ToDoItem[]) => ToDoListApi = (
+const createMockToDoListApi: (initialItems?: ToDoTask[]) => ToDoListApi = (
   initialItems = DEFAULT_INITIAL_ITEMS
 ) => {
-  let items: ToDoItem[] = initialItems;
+  let items: ToDoTask[] = initialItems;
 
   return {
-    list: () =>
+    tasks: (filterType) =>
       new Promise((resolve, reject) => {
-        resolve([...items]);
+        resolve([...items.filter(getTaskFilter(filterType))]);
       }),
-    addToDoItem: (props: ToDoItemCreateProps) =>
+    addToDoItem: (props: ToDoTaskInsertProps) =>
       new Promise((resolve, reject) => {
         const newItem = createToDoItem(props);
         items.push(newItem);
         resolve(newItem);
       }),
-    updateToDoItem: (id: string, changes: ToDoItemUpdateProps) =>
+    updateToDoItem: (id: string, changes: ToDoTaskUpdateProps) =>
       new Promise((resolve, reject) => {
         const itemIndex = items.findIndex((item) => {
           return item.id === id;
@@ -35,7 +36,7 @@ const createMockToDoListApi: (initialItems?: ToDoItem[]) => ToDoListApi = (
         } else {
           const updatedItem = updateToDoItem(items[itemIndex], changes);
           items[itemIndex] = updatedItem;
-          resolve();
+          resolve(updatedItem);
         }
       }),
     deleteToDoItem: (id: string) =>

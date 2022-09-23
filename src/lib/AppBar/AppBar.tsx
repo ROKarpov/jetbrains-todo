@@ -16,15 +16,15 @@ export type ActionDescription = {
 const EMPTY_ACTIONS: ActionDescription[] = [];
 
 export type TabDescription = {
-  id: string;
+  id: any;
   title: string;
 };
 
 type Props = {
   tabs: TabDescription[];
 
-  selectedTabId: string;
-  setSelectedTabId: (id: string) => void;
+  selectedTabId: any;
+  setSelectedTabId: (id: any) => void;
 
   actions?: ActionDescription[];
 

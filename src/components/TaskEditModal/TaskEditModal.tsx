@@ -1,5 +1,5 @@
-import React, { useCallback, useReducer } from "react";
-import { ToDoItem, ToDoItemCreateProps } from "../../api/types";
+import React, { useCallback, useEffect, useReducer } from "react";
+import { ToDoTask, ToDoTaskInsertProps } from "../../api/types";
 import Button from "../../lib/Button/Button";
 import Icon from "../../lib/Icon/Icon";
 import Modal from "../../lib/Modal/Modal";
@@ -12,14 +12,15 @@ import TaskEditForm from "./TaskEditForm/TaskEditForm";
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  onSave: (changes: ToDoItemCreateProps) => void;
-  task: ToDoItem | null;
+  onSave: (changes: ToDoTaskInsertProps) => void;
+  task: ToDoTask | null;
 };
 
 const TaskEditModal: React.FC<Props> = ({ open, setOpen, onSave, task }) => {
   const [state, dispatch] = useReducer(
     editTaskReducer,
-    mapTaskToEditTaskState(task)
+    task,
+    mapTaskToEditTaskState
   );
   const handleSave = useCallback(() => {
     onSave(mapEditTaskStateToChange(state));
@@ -28,6 +29,9 @@ const TaskEditModal: React.FC<Props> = ({ open, setOpen, onSave, task }) => {
   const handleCancel = useCallback(() => {
     setOpen(false);
   }, [setOpen]);
+  useEffect(() => {
+    dispatch({ type: "RESET", payload: task });
+  }, [task]);
 
   return (
     <Modal

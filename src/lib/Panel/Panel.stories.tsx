@@ -23,4 +23,4 @@ const Template: ComponentStory<typeof Panel> = (args) => (
 );
 
 const Default = Template.bind({});
-export { Default as Input };
+export { Default as Panel };

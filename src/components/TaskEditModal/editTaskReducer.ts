@@ -1,7 +1,8 @@
-import { ToDoItem, ToDoItemCreateProps } from "../../api/types";
+import { ToDoTask, ToDoTaskInsertProps } from "../../api/types";
+import { isToDoItem } from "../../api/utils";
 import { isEmpty } from "../../utils/utils";
 
-export type EditTaskState = ToDoItemCreateProps & {
+export type EditTaskState = ToDoTaskInsertProps & {
   hasDescriptionErrors: boolean;
   shouldShowDescriptionErrors: boolean;
   changed: boolean;
@@ -12,14 +13,15 @@ type EditTaskActionType =
   | "CHANGE_DESCRIPTION"
   | "CHANGE_DUE_TO_DATE"
   | "CHANGE_COMMENTS"
-  | "BLUR_DESCRIPTION";
+  | "BLUR_DESCRIPTION"
+  | "RESET";
 
 export type EditTaskAction = {
   type: EditTaskActionType;
-  payload?: string;
+  payload?: string | ToDoTask | null;
 };
 
-export const mapTaskToEditTaskState: (item: ToDoItem | null) => EditTaskState =
+export const mapTaskToEditTaskState: (item: ToDoTask | null) => EditTaskState =
   (item) => {
     const result: EditTaskState =
       item !== null
@@ -43,7 +45,7 @@ export const mapTaskToEditTaskState: (item: ToDoItem | null) => EditTaskState =
 
 export const mapEditTaskStateToChange: (
   state: EditTaskState
-) => ToDoItemCreateProps = (state) => {
+) => ToDoTaskInsertProps = (state) => {
   return {
     description: state.description,
     completeDueToDate: state.completeDueToDate,
@@ -59,22 +61,25 @@ const editTaskReducer: (
   let result: EditTaskState;
   switch (type) {
     case "CHANGE_DESCRIPTION":
+      const newDescription = typeof payload === "string" ? payload : "";
       result = {
         ...state,
-        description: payload ? payload : "",
-        hasDescriptionErrors: isEmpty(payload),
+        description: newDescription,
+        hasDescriptionErrors: isEmpty(newDescription),
         changed: true,
       };
       break;
     case "CHANGE_DUE_TO_DATE":
+      const newDueToDate = typeof payload === "string" ? payload : "";
       result = {
         ...state,
-        completeDueToDate: payload ? new Date(payload) : undefined,
+        completeDueToDate: payload ? new Date(newDueToDate) : undefined,
         changed: true,
       };
       break;
     case "CHANGE_COMMENTS":
-      result = { ...state, comments: payload, changed: true };
+      const newComments = typeof payload === "string" ? payload : "";
+      result = { ...state, comments: newComments, changed: true };
       break;
     case "BLUR_DESCRIPTION":
       result = {
@@ -82,6 +87,10 @@ const editTaskReducer: (
         shouldShowDescriptionErrors: true,
       };
       break;
+    case "RESET":
+      return payload === null || isToDoItem(payload)
+        ? mapTaskToEditTaskState(payload)
+        : state;
     default:
       result = state;
       break;

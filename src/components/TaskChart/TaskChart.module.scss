@@ -1,0 +1,19 @@
+@import "../../styles/bootstrap_core.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel {
+  padding: 1rem;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart {
+  align-self: stretch;
+  flex: 1 1 0;
+}

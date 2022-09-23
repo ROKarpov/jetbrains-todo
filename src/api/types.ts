@@ -1,4 +1,9 @@
-export type ToDoItem = {
+export type TaskFilterType =
+  | "all_tasks"
+  | "uncompleted_tasks"
+  | "completed_tasks";
+
+export type ToDoTask = {
   id: string;
   description: string;
   completeDate: Date | null;
@@ -7,7 +12,7 @@ export type ToDoItem = {
   completeDueToDate?: Date;
 };
 
-export type ToDoItemCreateProps = Pick<ToDoItem, "description"> &
-  Partial<Omit<ToDoItem, "id" | "lastChangeDate" | "description">>;
+export type ToDoTaskInsertProps = Pick<ToDoTask, "description"> &
+  Partial<Omit<ToDoTask, "id" | "lastChangeDate" | "description">>;
 
-export type ToDoItemUpdateProps = Partial<ToDoItemCreateProps>;
+export type ToDoTaskUpdateProps = Partial<ToDoTaskInsertProps>;
