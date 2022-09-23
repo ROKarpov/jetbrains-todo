@@ -3,6 +3,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import TaskEditModal from "./TaskEditModal";
 import { createToDoItem } from "../../api/utils";
+import dayjs from "dayjs";
 
 export default {
   title: "Components/Task Edit Modal",
@@ -28,7 +29,7 @@ export const EditTask = Template.bind({});
 EditTask.args = {
   task: createToDoItem({
     description: `Task #1`,
-    completeDueToDate: new Date(),
+    completeDueToDate: dayjs().format(),
   }),
 };
 

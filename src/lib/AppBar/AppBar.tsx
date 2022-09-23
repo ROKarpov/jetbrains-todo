@@ -5,15 +5,7 @@ import Icon, { IconType } from "../Icon/Icon";
 
 import "./bootstrap.scss";
 import styles from "./AppBar.module.scss";
-import Button from "../Button/Button";
 import Container from "../Container/Container";
-
-export type ActionDescription = {
-  iconType: IconType;
-  action: () => void;
-};
-
-const EMPTY_ACTIONS: ActionDescription[] = [];
 
 export type TabDescription = {
   id: any;
@@ -26,18 +18,18 @@ type Props = {
   selectedTabId: any;
   setSelectedTabId: (id: any) => void;
 
-  actions?: ActionDescription[];
+  children: React.ReactNode;
 
   className?: string;
 };
 
-const AppBar: React.FC<Props> = ({
-  tabs,
-  selectedTabId,
-  setSelectedTabId,
-  actions = EMPTY_ACTIONS,
-  className,
-}) => {
+type ActionsProps = {
+  children: React.ReactNode;
+};
+
+const AppBar: React.FC<Props> & {
+  Actions: React.FC<ActionsProps>;
+} = ({ tabs, selectedTabId, setSelectedTabId, children, className }) => {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -57,21 +49,7 @@ const AppBar: React.FC<Props> = ({
           </Navbar.Toggle>
           <Navbar.Brand>ToDo List</Navbar.Brand>
         </div>
-        <div className={styles.actionWrapper}>
-          {actions.map((action) => (
-            <Button
-              key={action.iconType}
-              type="no-container"
-              size="lg"
-              className={styles.action}
-              onClick={() => {
-                action.action();
-              }}
-            >
-              <Icon type={action.iconType} />
-            </Button>
-          ))}
-        </div>
+        {children}
         <Navbar.Collapse>
           <Nav
             activeKey={selectedTabId}
@@ -88,5 +66,11 @@ const AppBar: React.FC<Props> = ({
     </Navbar>
   );
 };
+
+const AppBarActions: React.FC<ActionsProps> = ({ children }) => (
+  <div className={styles.actionWrapper}>{children}</div>
+);
+
+AppBar.Actions = AppBarActions;
 
 export default AppBar;

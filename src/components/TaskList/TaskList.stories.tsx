@@ -3,6 +3,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import TaskList from "./TaskList";
 import { createToDoItem } from "../../api/utils";
+import dayjs from "dayjs";
 
 export default {
   title: "Components/Task List",
@@ -13,14 +14,14 @@ export default {
   },
   argTypes: {
     onItemClick: { action: "item clicked" },
-    onItemInfoClick: { action: "item info clicked" },
+    onEditItemClick: { action: "item info clicked" },
   },
   args: {
     items: Array.from({ length: 1000 }, (_, i) =>
       createToDoItem({
         description: `Task #${i + 1}`,
-        completeDate: i % 2 === 0 ? new Date() : null,
-        completeDueToDate: i % 2 === 0 ? new Date() : undefined,
+        completeDate: i % 2 === 0 ? dayjs().format() : null,
+        completeDueToDate: i % 2 === 0 ? dayjs().format() : undefined,
       })
     ),
   },

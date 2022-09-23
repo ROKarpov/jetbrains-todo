@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
 
 import {
@@ -25,7 +26,7 @@ export const createToDoItem: (props: ToDoTaskInsertProps) => ToDoTask = ({
     id: uuid(),
     description: description,
     completeDate: completeDate,
-    lastChangeDate: new Date(),
+    lastChangeDate: dayjs().format(),
     comments: comments,
     completeDueToDate: completeDueToDate,
   };
@@ -35,7 +36,7 @@ export const updateToDoItem: (
   item: ToDoTask,
   props: ToDoTaskUpdateProps
 ) => ToDoTask = (item, props) => {
-  return { ...item, ...props, lastChangeDate: new Date() };
+  return { ...item, ...props, lastChangeDate: dayjs().format() };
 };
 
 export const readToDoList: (src: Blob) => Promise<ToDoTask[]> = async (src) => {

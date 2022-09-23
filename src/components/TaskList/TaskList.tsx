@@ -9,14 +9,16 @@ import styles from "./TaskList.module.scss";
 type Props = {
   items: ToDoTask[];
   onItemClick: (item: ToDoTask) => void;
-  onItemInfoClick: (item: ToDoTask) => void;
+  onEditItemClick: (item: ToDoTask) => void;
+  onDeleteItemClick: (item: ToDoTask) => void;
   className?: string;
 };
 
 const TaskList: React.FC<Props> = ({
   items,
   onItemClick,
-  onItemInfoClick,
+  onEditItemClick,
+  onDeleteItemClick,
   className,
 }) => (
   <Panel
@@ -33,7 +35,8 @@ const TaskList: React.FC<Props> = ({
         <TaskRow
           item={item}
           onItemClick={onItemClick}
-          onItemInfoClick={onItemInfoClick}
+          onEditItemClick={onEditItemClick}
+          onDeleteItemClick={onDeleteItemClick}
         />
       )}
     />

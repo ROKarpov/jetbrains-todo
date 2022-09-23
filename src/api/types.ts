@@ -6,10 +6,10 @@ export type TaskFilterType =
 export type ToDoTask = {
   id: string;
   description: string;
-  completeDate: Date | null;
-  lastChangeDate: Date;
+  completeDate: string | null;
+  lastChangeDate: string;
   comments?: string;
-  completeDueToDate?: Date;
+  completeDueToDate?: string;
 };
 
 export type ToDoTaskInsertProps = Pick<ToDoTask, "description"> &

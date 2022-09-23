@@ -18,6 +18,8 @@ export type ModalHeaderAction = {
   onClick: () => void;
 };
 
+export type FullscreenBreakpoint = "sm" | "md" | "lg";
+
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -25,6 +27,7 @@ type Props = {
   children: React.ReactNode;
   footer?: React.ReactNode;
   header?: React.ReactNode;
+  fullscreenBreakpoint?: FullscreenBreakpoint;
 };
 
 const Modal: React.FC<Props> = ({
@@ -34,6 +37,7 @@ const Modal: React.FC<Props> = ({
   children,
   footer,
   header,
+  fullscreenBreakpoint = "md",
 }) => {
   const handleModalClose = useCallback(() => setOpen(false), [setOpen]);
   const handleCloseClick: MouseEventHandler<HTMLButtonElement> = useCallback(
@@ -42,7 +46,9 @@ const Modal: React.FC<Props> = ({
   );
   return (
     <BSModal
-      fullscreen="md-down"
+      fullscreen={
+        fullscreenBreakpoint ? `${fullscreenBreakpoint}-down` : undefined
+      }
       centered
       show={open}
       onHide={handleModalClose}
@@ -50,18 +56,22 @@ const Modal: React.FC<Props> = ({
       <BSModal.Header
         className={isEmpty(title) ? styles.headerItem : undefined}
       >
-        <Button
-          onClick={handleCloseClick}
-          type="no-container"
-          className={styles.headerItem}
-          size="lg"
-        >
-          <Icon type="close" />
-        </Button>
+        {fullscreenBreakpoint && (
+          <Button
+            onClick={handleCloseClick}
+            type="no-container"
+            className={styles.headerItem}
+            size="lg"
+          >
+            <Icon type="close" />
+          </Button>
+        )}
         {title && (
           <BSModal.Title className={styles.title}>{title}</BSModal.Title>
         )}
-        {header && <div className={styles.headerContainer}>{header}</div>}
+        {fullscreenBreakpoint && header && (
+          <div className={styles.headerContainer}>{header}</div>
+        )}
       </BSModal.Header>
 
       <BSModal.Body>{children}</BSModal.Body>

@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import AppBar, { ActionDescription, TabDescription } from "./AppBar";
+import AppBar, { TabDescription } from "./AppBar";
 
 const TABS: TabDescription[] = [
   {
@@ -18,17 +18,6 @@ const TABS: TabDescription[] = [
   },
 ];
 
-const ACTIONS: ActionDescription[] = [
-  {
-    iconType: "file-import",
-    action: () => {},
-  },
-  {
-    iconType: "file-export",
-    action: () => {},
-  },
-];
-
 export default {
   title: "Components/App Bar",
   component: AppBar,
@@ -38,7 +27,6 @@ export default {
   },
   args: {
     tabs: TABS,
-    actions: ACTIONS,
     selectedTabId: TABS[1].id,
     setSelectedTabId: () => {},
   },

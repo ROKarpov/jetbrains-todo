@@ -15,16 +15,16 @@ type Props = {
 
 const Typography: React.FC<Props> = ({
   children,
-  fontSize = 6,
-  fontWeight = "normal",
+  fontSize,
+  fontWeight,
   small = false,
   muted = false,
   className,
 }) => (
   <div
     className={cn(
-      `fs-${fontSize}`,
-      `fw-${fontWeight}`,
+      fontSize ? `fs-${fontSize}` : null,
+      fontWeight ? `fw-${fontWeight}` : null,
       {
         small: small,
         "text-muted": muted,

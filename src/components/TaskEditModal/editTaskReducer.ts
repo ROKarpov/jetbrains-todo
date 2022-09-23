@@ -6,7 +6,7 @@ export type EditTaskState = ToDoTaskInsertProps & {
   hasDescriptionErrors: boolean;
   shouldShowDescriptionErrors: boolean;
   changed: boolean;
-  lastChangeDate?: Date;
+  lastChangeDate?: string;
 };
 
 type EditTaskActionType =
@@ -73,7 +73,7 @@ const editTaskReducer: (
       const newDueToDate = typeof payload === "string" ? payload : "";
       result = {
         ...state,
-        completeDueToDate: payload ? new Date(newDueToDate) : undefined,
+        completeDueToDate: payload ? newDueToDate : undefined,
         changed: true,
       };
       break;

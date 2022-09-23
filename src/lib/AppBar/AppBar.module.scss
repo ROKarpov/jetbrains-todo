@@ -11,10 +11,6 @@ $button-padding: map-get($spacers, 1);
   box-shadow: none;
 }
 
-.action {
-  padding: $button-padding;
-}
-
 .wrapper {
   @extend .d-flex;
 
