@@ -1,0 +1,26 @@
+@import "../../styles/bootstrap_core.scss";
+
+.content {
+  display: flex;
+  flex-direction: row;
+  padding: $content-spacing 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $content-spacing;
+}
+
+.list {
+  flex: 2 2 0;
+}
+
+.chart {
+  flex: 1 1 0;
+}
+
+.onplaceWait {
+  width: $onplace-wait-indicator-size;
+  height: $onplace-wait-indicator-size;
+}
