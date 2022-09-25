@@ -5,6 +5,7 @@ import Panel from "../../lib/Panel/Panel";
 import TaskRow from "./TaskRow/TaskRow";
 import cn from "classnames";
 import styles from "./TaskList.module.scss";
+import Typography from "../../lib/Typography/Typography";
 
 type Props = {
   items: ToDoTask[];
@@ -28,18 +29,27 @@ const TaskList: React.FC<Props> = ({
     borderWidth="xs"
     className={cn(styles.panel, className)}
   >
-    <List
-      items={items}
-      rowHeight={53}
-      row={(item) => (
-        <TaskRow
-          item={item}
-          onItemClick={onItemClick}
-          onEditItemClick={onEditItemClick}
-          onDeleteItemClick={onDeleteItemClick}
-        />
-      )}
-    />
+    {items.length > 0 ? (
+      <List
+        items={items}
+        rowHeight={53}
+        row={(item) => (
+          <TaskRow
+            item={item}
+            onItemClick={onItemClick}
+            onEditItemClick={onEditItemClick}
+            onDeleteItemClick={onDeleteItemClick}
+          />
+        )}
+      />
+    ) : (
+      <div className={styles.noTasks}>
+        <Typography fontSize={3}>No ToDo tasks added yet</Typography>
+        <Typography fontSize={4}>Add a new one</Typography>
+        <Typography fontSize={4}>or</Typography>
+        <Typography fontSize={4}>Import from file</Typography>
+      </div>
+    )}
   </Panel>
 );
 
