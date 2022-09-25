@@ -6,6 +6,7 @@ import Icon, { IconType } from "../Icon/Icon";
 import "./bootstrap.scss";
 import styles from "./Modal.module.scss";
 import { isEmpty } from "../../utils/utils";
+import classNames from "classnames";
 
 export type ModalFooterAction = {
   label: string;
@@ -28,6 +29,7 @@ type Props = {
   footer?: React.ReactNode;
   header?: React.ReactNode;
   fullscreenBreakpoint?: FullscreenBreakpoint;
+  bodyClassName?: string;
 };
 
 const Modal: React.FC<Props> = ({
@@ -38,6 +40,7 @@ const Modal: React.FC<Props> = ({
   footer,
   header,
   fullscreenBreakpoint = "md",
+  bodyClassName,
 }) => {
   const handleModalClose = useCallback(() => setOpen(false), [setOpen]);
   const handleCloseClick: MouseEventHandler<HTMLButtonElement> = useCallback(
@@ -74,7 +77,7 @@ const Modal: React.FC<Props> = ({
         )}
       </BSModal.Header>
 
-      <BSModal.Body>{children}</BSModal.Body>
+      <BSModal.Body className={bodyClassName}>{children}</BSModal.Body>
       {footer && (
         <BSModal.Footer className={styles.footerContainer}>
           {footer}

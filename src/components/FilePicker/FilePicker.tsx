@@ -70,36 +70,32 @@ const FilePicker: React.FC<Props> = ({ onFileSelected, className }) => {
       backgroundOpacity={hovered ? "25" : "0"}
       borderRadius="xl"
       borderWidth="0"
-      className={className}
+      className={cn(styles.container, className)}
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
     >
-      <div
-        className={styles.container}
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
+      <Typography fontSize={4} fontWeight="bold" className={styles.text}>
+        Drag File Here
+      </Typography>
+      <Typography fontSize={5} small muted className={styles.text}>
+        Or
+      </Typography>
+      <Button
+        disabled={hovered}
+        onClick={() => {
+          inputRef.current?.click();
+        }}
       >
-        <Typography fontSize={4} fontWeight="bold" className={styles.text}>
-          Drag File Here
-        </Typography>
-        <Typography fontSize={5} small muted className={styles.text}>
-          Or
-        </Typography>
-        <Button
-          disabled={hovered}
-          onClick={() => {
-            inputRef.current?.click();
-          }}
-        >
-          Browse
-        </Button>
-        <input
-          ref={inputRef}
-          type="file"
-          className={styles.input}
-          onChange={handleOnChange}
-        />
-      </div>
+        Browse
+      </Button>
+      <input
+        ref={inputRef}
+        type="file"
+        className={styles.input}
+        onChange={handleOnChange}
+      />
     </Panel>
   );
 };

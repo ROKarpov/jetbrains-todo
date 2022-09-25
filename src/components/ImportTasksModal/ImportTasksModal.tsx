@@ -3,6 +3,8 @@ import Button from "../../lib/Button/Button";
 import Modal from "../../lib/Modal/Modal";
 import FilePicker from "../FilePicker/FilePicker";
 
+import styles from "./ImportTasksModal.module.scss";
+
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -36,6 +38,7 @@ const ImportTasksModal: React.FC<Props> = ({
           Cancel
         </Button>
       }
+      bodyClassName={styles.content}
     >
       <FilePicker onFileSelected={handleFileSelected} />
     </Modal>

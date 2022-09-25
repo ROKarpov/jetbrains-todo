@@ -10,15 +10,13 @@ type BorderRadius = "0" | "xs" | "sm" | "md" | "lg" | "xl" | "pill" | "circle";
 type BorderWidth = "0" | "xs" | "sm" | "md" | "lg" | "xl";
 type ShadowRadius = "0" | "sm" | "md" | "lg";
 
-type Props = {
-  children: React.ReactNode;
+type Props = React.HTMLAttributes<HTMLDivElement> & {
   borderRadius?: BorderRadius;
   borderWidth?: BorderWidth;
   borderColor?: PredefinedColor;
   shadowRadius?: ShadowRadius;
   backgroundColor?: PredefinedColor;
   backgroundOpacity?: BackgroundOpacity;
-  className?: string;
 };
 
 const Panel: React.FC<Props> = ({
@@ -30,6 +28,7 @@ const Panel: React.FC<Props> = ({
   backgroundOpacity = "0",
   shadowRadius = "0",
   className,
+  ...props
 }) => (
   <div
     className={cn(
@@ -41,6 +40,7 @@ const Panel: React.FC<Props> = ({
       styles[`shadow-radius-${shadowRadius}`],
       className
     )}
+    {...props}
   >
     {children}
   </div>

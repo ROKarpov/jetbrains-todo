@@ -1,6 +1,7 @@
 import cn from "classnames";
 import React from "react";
 import { PredefinedColor } from "../PredefinedColor";
+import styles from "./Typography.module.scss";
 
 type FontSize = 1 | 2 | 3 | 4 | 5 | 6;
 type FontWeighgt = "bold" | "semibold" | "normal" | "light";
@@ -9,6 +10,7 @@ type Props = {
   children: React.ReactNode;
   fontSize?: FontSize;
   fontWeight?: FontWeighgt;
+  multiline?: boolean;
   color?: PredefinedColor;
   small?: boolean;
   muted?: boolean;
@@ -20,6 +22,7 @@ const Typography: React.FC<Props> = ({
   fontSize,
   fontWeight,
   color,
+  multiline = false,
   small = false,
   muted = false,
   className,
@@ -32,6 +35,7 @@ const Typography: React.FC<Props> = ({
       {
         small: small,
         "text-muted": muted,
+        [styles.singleLine]: !multiline,
       },
       className
     )}

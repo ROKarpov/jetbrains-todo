@@ -1,12 +1,14 @@
-import React, { MouseEventHandler, useCallback } from "react";
-import { Container, Form } from "react-bootstrap";
+import React, { MouseEventHandler, useCallback, useMemo } from "react";
 import Button from "../../../lib/Button/Button";
 import { ToDoTask } from "../../../api/types";
 import Icon from "../../../lib/Icon/Icon";
 import styles from "./TaskRow.module.scss";
 import Checkbox from "../../../lib/Checkbox/Checkbox";
 import dayjs from "dayjs";
+import calendar from "dayjs/plugin/calendar";
 import Typography from "../../../lib/Typography/Typography";
+
+dayjs.extend(calendar);
 
 type Props = {
   item: ToDoTask;
@@ -21,6 +23,19 @@ const TaskRow: React.FC<Props> = ({
   onEditItemClick,
   onDeleteItemClick,
 }) => {
+  const formattedDueToDate = useMemo(() => {
+    return item.completeDueToDate
+      ? dayjs(item.completeDueToDate).calendar(null, {
+          sameDay: "[Today at] h:mm A",
+          nextDay: "[Tomorrow]",
+          nextWeek: "dddd",
+          lastDay: "[Yesterday]",
+          lastWeek: "[Last] dddd",
+          sameElse: "DD/MM/YYYY",
+        })
+      : null;
+  }, [item.completeDueToDate]);
+
   const handleRowClick: MouseEventHandler<HTMLDivElement> = useCallback(
     (e) => {
       onItemClick(item);
@@ -49,11 +64,11 @@ const TaskRow: React.FC<Props> = ({
         checked={item.completeDate != null}
         ariaLabel={`Completion of ${item.description}`}
       />
-      <div>
-        <Typography>{item.description}</Typography>
-        {item.completeDueToDate && (
-          <Typography small muted>
-            {`Due to: ${dayjs(item.completeDueToDate).format()}`}
+      <div className={styles.textContainer}>
+        <Typography multiline={false}>{item.description}</Typography>
+        {formattedDueToDate && (
+          <Typography small muted multiline={false}>
+            Due to: {formattedDueToDate}
           </Typography>
         )}
       </div>

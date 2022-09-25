@@ -1,8 +1,10 @@
 .container {
   padding: 2.5rem 5rem;
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .input {

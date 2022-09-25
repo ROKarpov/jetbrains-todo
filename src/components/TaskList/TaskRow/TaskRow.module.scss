@@ -26,7 +26,16 @@ $row-active-bg: #ddd;
   }
 }
 
+.textContainer {
+  flex: 1 1 0;
+}
+
 .actionContainer {
   display: none;
   margin-left: auto;
+  flex: 0 0 auto;
+
+  @media only screen and (max-width: map-get($grid-breakpoints, md)) {
+    display: block;
+  }
 }
