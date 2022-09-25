@@ -53,15 +53,12 @@ const createMockToDoListApi: (initialItems?: ToDoTask[]) => ToDoListApi = (
       }),
 
     import: async (src: Blob) => {
-      await new Promise((resolve) => {
-        setTimeout(() => resolve(null), 500000);
-      });
       items = await readToDoList(src);
     },
     export: () =>
       new Promise((resolve, reject) => {
         const blob = writeToDoList(items);
-        setTimeout(() => resolve(blob), 500000);
+        resolve(blob);
       }),
   };
 };
