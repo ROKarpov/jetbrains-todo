@@ -6,11 +6,13 @@ import styles from "./Button.module.scss";
 import containerStyles from "./Container.module.scss";
 
 export type ButtonType = "filled" | "outlined" | "no-container";
+export type ButtonColor = "primary" | "danger";
 export type ButtonSize = "sm" | "md" | "lg";
 
 type Props = {
   onClick: MouseEventHandler<HTMLButtonElement>;
   type?: ButtonType;
+  color?: ButtonColor;
   size?: ButtonSize;
   disabled?: boolean;
   className?: string;
@@ -20,6 +22,7 @@ type Props = {
 const Button: React.FC<Props> = ({
   onClick,
   type = "filled",
+  color = "primary",
   size = "md",
   disabled,
   className,
@@ -32,7 +35,7 @@ const Button: React.FC<Props> = ({
       className={cn(
         styles.button,
         styles[size],
-        containerStyles[type],
+        containerStyles[`${type}-${color}`],
         className
       )}
       onClick={onClick}

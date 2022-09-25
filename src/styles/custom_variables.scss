@@ -10,3 +10,8 @@ $btn-no-container-disabled-color-tint-amount: 50%;
 $navbar-adjust-height: 4rem;
 $content-spacing: map-get($spacers, 3);
 $onplace-wait-indicator-size: 1.25rem;
+
+$alert-padding: map-get($spacers, 2);
+$alert-margin: map-get($spacers, 2);
+$alert-position-top: $navbar-adjust-height + $alert-margin;
+$alert-position-end: $alert-margin;

@@ -21,3 +21,10 @@
 .content {
   flex: 1 1 0;
 }
+
+.alert {
+  z-index: 90;
+  position: fixed;
+  right: 0.5rem;
+  top: $navbar-adjust-height + 0.5rem;
+}

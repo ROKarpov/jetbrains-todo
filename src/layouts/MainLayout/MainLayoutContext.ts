@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
 
-const MainLayoutContext = React.createContext(0);
+export type ContextContent = {
+  setAlert: (message: string) => void;
+};
+
+const MainLayoutContext = React.createContext<ContextContent | null>(null);
 
 export const useMainLayoutContext = () => {
   const context = useContext(MainLayoutContext);

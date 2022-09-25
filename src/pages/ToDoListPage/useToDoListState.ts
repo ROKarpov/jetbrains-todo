@@ -24,7 +24,7 @@ const invalidateQueries: (client: QueryClient) => void = (client) => {
   client.invalidateQueries([STATISTICS_QUERY_KEY]);
 };
 
-const useToDoListState = () => {
+const useToDoListState = (setAlert: (alert: string) => void) => {
   const client = useQueryClient();
 
   const [filterType, setFilterType] = useState<TaskFilterType>("all_tasks");
@@ -78,6 +78,9 @@ const useToDoListState = () => {
     },
     {
       onSuccess: () => invalidateQueries(client),
+      onError: (e: string) => {
+        setAlert(e);
+      },
     }
   );
 

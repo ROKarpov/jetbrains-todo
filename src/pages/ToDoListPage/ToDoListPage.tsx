@@ -21,6 +21,8 @@ import Icon from "../../lib/Icon/Icon";
 import FileExporter from "../../components/FileExporter/FileExporter";
 import WaitIndicator from "../../lib/WaitIndicator/WaitIndicator";
 import dayjs from "dayjs";
+import { useMainLayoutContext } from "../../layouts/MainLayout/MainLayoutContext";
+
 const TABS: TabDescription[] = [
   {
     id: "all_tasks",
@@ -39,6 +41,8 @@ const TABS: TabDescription[] = [
 const client = new QueryClient();
 
 const ToDoListPageContent: React.FC = () => {
+  const { setAlert } = useMainLayoutContext();
+
   const {
     tasks,
     statistics,
@@ -52,7 +56,7 @@ const ToDoListPageContent: React.FC = () => {
     exportTasks,
     setFilterType,
     setStatisticsType,
-  } = useToDoListState();
+  } = useToDoListState(setAlert);
 
   const [taskToEdit, setTaskToEdit] = useState<ToDoTask | null>(null);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -101,7 +105,7 @@ const ToDoListPageContent: React.FC = () => {
   );
 
   return (
-    <MainLayout>
+    <>
       <MainLayout.Header>
         <AppBar
           tabs={TABS}
@@ -193,13 +197,15 @@ const ToDoListPageContent: React.FC = () => {
           }}
         />
       </MainLayout.Content>
-    </MainLayout>
+    </>
   );
 };
 
 const ToDoListPage: React.FC = () => (
   <QueryClientProvider client={client}>
-    <ToDoListPageContent />
+    <MainLayout>
+      <ToDoListPageContent />
+    </MainLayout>
   </QueryClientProvider>
 );
 

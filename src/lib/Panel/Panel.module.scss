@@ -55,33 +55,6 @@
   @extend .border-5;
 }
 
-.border-color-primary {
-  @extend .border-primary;
-}
-
-.border-color-secondary {
-  @extend .border-secondary;
-}
-
-.border-color-success {
-  @extend .border-success;
-}
-
-.border-color-error {
-  @extend .border-danger;
-}
-
-.border-color-info {
-  @extend .border-info;
-}
-
-.border-color-light {
-  @extend .border-light;
-}
-.border-color-dark {
-  @extend .border-dark;
-}
-
 .radius-0 {
   @extend .rounded-0;
 }

@@ -1,42 +1,61 @@
 @import "./bootstrap.scss";
 
-.filled {
-  @extend .btn-primary;
-}
-
-.outlined {
+@mixin button-outlined($color) {
   @include button-variant(
     $background: transparent,
-    $border: $primary,
-    $color: $primary,
+    $border: $color,
+    $color: $color,
     $hover-background: transparent,
-    $hover-border: shade-color($primary, $btn-hover-color-shade-amount),
-    $hover-color: shade-color($primary, $btn-hover-color-shade-amount),
+    $hover-border: shade-color($color, $btn-hover-color-shade-amount),
+    $hover-color: shade-color($color, $btn-hover-color-shade-amount),
     $active-background: transparent,
-    $active-border: shade-color($primary, $btn-active-color-shade-amount),
-    $active-color: shade-color($primary, $btn-active-color-shade-amount),
+    $active-border: shade-color($color, $btn-active-color-shade-amount),
+    $active-color: shade-color($color, $btn-active-color-shade-amount),
     $disabled-background: transparent,
     $disabled-border:
-      tint-color($primary, $btn-no-container-disabled-color-tint-amount),
+      tint-color($color, $btn-no-container-disabled-color-tint-amount),
     $disabled-color:
-      tint-color($primary, $btn-no-container-disabled-color-tint-amount)
+      tint-color($color, $btn-no-container-disabled-color-tint-amount)
   );
 }
-
-.no-container {
+@mixin button-no-container($color) {
   @include button-variant(
     $background: transparent,
     $border: transparent,
-    $color: $primary,
+    $color: $color,
     $hover-background: transparent,
     $hover-border: transparent,
-    $hover-color: shade-color($primary, $btn-hover-color-shade-amount),
+    $hover-color: shade-color($color, $btn-hover-color-shade-amount),
     $active-background: transparent,
     $active-border: transparent,
-    $active-color: shade-color($primary, $btn-active-color-shade-amount),
+    $active-color: shade-color($color, $btn-active-color-shade-amount),
     $disabled-background: transparent,
     $disabled-border: transparent,
     $disabled-color:
-      tint-color($primary, $btn-no-container-disabled-color-tint-amount)
+      tint-color($color, $btn-no-container-disabled-color-tint-amount)
   );
+}
+
+.filled-primary {
+  @extend .btn-primary;
+}
+
+.filled-danger {
+  @extend .btn-danger;
+}
+
+.outlined-primary {
+  @include button-outlined($primary);
+}
+
+.outlined-danger {
+  @include button-outlined($danger);
+}
+
+.no-container-primary {
+  @include button-no-container($primary);
+}
+
+.no-container-danger {
+  @include button-no-container($danger);
 }

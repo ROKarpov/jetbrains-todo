@@ -1,0 +1,18 @@
+@import "../../styles/bootstrap_core.scss";
+
+.container {
+  display: flex;
+  flex-direction: row;
+  opacity: 1;
+
+  transition: opacity 150ms, margin-top 150ms;
+}
+
+.content {
+  padding: $alert-padding 0 $alert-padding $alert-padding;
+}
+
+.hidden {
+  opacity: 0;
+  margin-top: -$alert-margin;
+}
