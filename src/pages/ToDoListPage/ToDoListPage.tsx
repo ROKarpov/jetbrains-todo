@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import {
+  TaskFilterType,
   ToDoTask,
   ToDoTaskInsertProps,
   ToDoTaskUpdateProps,
@@ -12,7 +13,7 @@ import TaskList from "../../components/TaskList/TaskList";
 import MainLayout from "../../layouts/MainLayout/MainLayout";
 import AppBar, { TabDescription } from "../../lib/AppBar/AppBar";
 import useToDoListState from "./useToDoListState";
-import { TaskInsert } from "./utils";
+import { TaskInsert, TaskStatisticsType } from "./utils";
 import styles from "./ToDoListPage.module.scss";
 import Container from "../../lib/Container/Container";
 import TaskDeleteConformationModal from "../../components/TaskDeleteConfirmationModal/TaskDeleteConformationModal";
@@ -22,6 +23,7 @@ import FileExporter from "../../components/FileExporter/FileExporter";
 import WaitIndicator from "../../lib/WaitIndicator/WaitIndicator";
 import dayjs from "dayjs";
 import { useMainLayoutContext } from "../../layouts/MainLayout/MainLayoutContext";
+import { useParams, useNavigate } from "react-router-dom";
 
 const TABS: TabDescription[] = [
   {
@@ -43,20 +45,20 @@ const client = new QueryClient();
 const ToDoListPageContent: React.FC = () => {
   const { setAlert } = useMainLayoutContext();
 
+  const { filterType } = useParams<{ filterType: TaskFilterType }>();
+  const navigate = useNavigate();
+
   const {
     tasks,
     statistics,
-    filterType,
     statisticsType,
-    isLoading,
     isImporting,
     upsertTask,
     deleteTask,
     importTasks,
     exportTasks,
-    setFilterType,
     setStatisticsType,
-  } = useToDoListState(setAlert);
+  } = useToDoListState(filterType ?? "all_tasks", setAlert);
 
   const [taskToEdit, setTaskToEdit] = useState<ToDoTask | null>(null);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -67,7 +69,7 @@ const ToDoListPageContent: React.FC = () => {
     (changes: ToDoTaskInsertProps | ToDoTaskUpdateProps) => {
       if (taskToEdit) {
         upsertTask({ id: taskToEdit.id, changes });
-      } else if (taskToEdit == null) {
+      } else if (taskToEdit === null) {
         upsertTask({ changes } as TaskInsert);
       }
     },
@@ -103,6 +105,12 @@ const ToDoListPageContent: React.FC = () => {
     },
     [setTaskToEdit, setDeleteModalOpen]
   );
+  const handleSelectedTabIdChanged = useCallback(
+    (id: TaskStatisticsType) => {
+      navigate(`/${id}`);
+    },
+    [navigate]
+  );
 
   return (
     <>
@@ -110,7 +118,7 @@ const ToDoListPageContent: React.FC = () => {
         <AppBar
           tabs={TABS}
           selectedTabId={filterType}
-          setSelectedTabId={setFilterType}
+          setSelectedTabId={handleSelectedTabIdChanged}
         >
           <AppBar.Actions>
             <Button

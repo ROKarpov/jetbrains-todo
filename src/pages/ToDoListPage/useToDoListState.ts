@@ -24,10 +24,12 @@ const invalidateQueries: (client: QueryClient) => void = (client) => {
   client.invalidateQueries([STATISTICS_QUERY_KEY]);
 };
 
-const useToDoListState = (setAlert: (alert: string) => void) => {
+const useToDoListState = (
+  filterType: TaskFilterType,
+  setAlert: (alert: string) => void
+) => {
   const client = useQueryClient();
 
-  const [filterType, setFilterType] = useState<TaskFilterType>("all_tasks");
   const [statisticsType, setStatisticsType] =
     useState<TaskStatisticsType>("last-week");
 
@@ -98,7 +100,6 @@ const useToDoListState = (setAlert: (alert: string) => void) => {
     deleteTask: deleteItemMutation.mutate,
     importTasks: importMutation.mutate,
     exportTasks: api.export,
-    setFilterType,
     setStatisticsType,
   };
 };
