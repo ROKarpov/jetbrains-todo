@@ -50,7 +50,7 @@ describe("api utils", () => {
 
     test("changes 'lastChangeDate' if there is changes", async () => {
       const item = createToDoItem({ description: "Description" });
-      await sleep(100);
+      await sleep(1000);
       const updatedItem = updateToDoItem(item, {
         description: "Changed Description",
       });

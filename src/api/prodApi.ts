@@ -22,7 +22,7 @@ const createProdToDoListApi: () => ToDoListApi = () => {
         }
         const actualItems = cachedItems ?? [];
         const filter = getTaskFilter(filterType);
-        const result = filter ? actualItems.filter(filter) : actualItems;
+        const result = filter ? actualItems.filter(filter) : [...actualItems];
         resolve(result);
       }),
     addToDoItem: (props: ToDoTaskInsertProps) =>
