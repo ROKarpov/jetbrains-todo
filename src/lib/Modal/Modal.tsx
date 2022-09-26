@@ -57,7 +57,7 @@ const Modal: React.FC<Props> = ({
         {fullscreenOnMd && (
           <Button
             onClick={handleCloseClick}
-            type="no-container"
+            containerType="no-container"
             className={styles.headerItem}
             size="lg"
           >

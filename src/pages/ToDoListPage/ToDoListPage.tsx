@@ -24,6 +24,7 @@ import WaitIndicator from "../../lib/WaitIndicator/WaitIndicator";
 import dayjs from "dayjs";
 import { useMainLayoutContext } from "../../layouts/MainLayout/MainLayoutContext";
 import { useParams, useNavigate } from "react-router-dom";
+import TooltipProvider from "../../lib/TooltipProvider/TooltipProvider";
 
 const TABS: TabDescription[] = [
   {
@@ -122,7 +123,7 @@ const ToDoListPageContent: React.FC = () => {
         >
           <AppBar.Actions>
             <Button
-              type="no-container"
+              containerType="no-container"
               size="lg"
               className={styles.action}
               onClick={() => {
@@ -132,37 +133,52 @@ const ToDoListPageContent: React.FC = () => {
             >
               <Icon type="plus" />
             </Button>
-            <Button
-              type="no-container"
-              size="lg"
-              className={styles.action}
-              onClick={() => {
-                setImportModalOpen(true);
-              }}
-            >
-              {isImporting ? (
-                <WaitIndicator size="sm" className={styles.onplaceWait} />
-              ) : (
-                <Icon type="file-import" />
-              )}
-            </Button>
-            <FileExporter getFile={exportTasks}>
-              {(isExporting, exportCallback) => (
+            <TooltipProvider tooltipContent="Import List" position="bottom">
+              {({ ref, ...triggers }) => (
                 <Button
-                  type="no-container"
+                  ref={ref}
+                  containerType="no-container"
                   size="lg"
                   className={styles.action}
-                  onClick={exportCallback}
-                  disabled={isExporting}
+                  onClick={() => {
+                    setImportModalOpen(true);
+                  }}
+                  {...triggers}
                 >
-                  {isExporting ? (
+                  {isImporting ? (
                     <WaitIndicator size="sm" className={styles.onplaceWait} />
                   ) : (
-                    <Icon type="file-export" />
+                    <Icon type="file-import" />
                   )}
                 </Button>
               )}
-            </FileExporter>
+            </TooltipProvider>
+            <TooltipProvider tooltipContent="Export List" position="bottom">
+              {({ ref, ...triggers }) => (
+                <FileExporter getFile={exportTasks}>
+                  {(isExporting, exportCallback) => (
+                    <Button
+                      ref={ref}
+                      containerType="no-container"
+                      size="lg"
+                      className={styles.action}
+                      onClick={exportCallback}
+                      disabled={isExporting}
+                      {...triggers}
+                    >
+                      {isExporting ? (
+                        <WaitIndicator
+                          size="sm"
+                          className={styles.onplaceWait}
+                        />
+                      ) : (
+                        <Icon type="file-export" />
+                      )}
+                    </Button>
+                  )}
+                </FileExporter>
+              )}
+            </TooltipProvider>
           </AppBar.Actions>
         </AppBar>
       </MainLayout.Header>

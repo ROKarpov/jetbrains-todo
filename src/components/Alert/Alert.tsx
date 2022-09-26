@@ -36,7 +36,7 @@ const Alert: React.FC<Props> = ({
       <Button
         size="sm"
         color="danger"
-        type="no-container"
+        containerType="no-container"
         onClick={handleClick}
       >
         <Icon type="close" />

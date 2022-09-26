@@ -42,12 +42,12 @@ const TaskEditModal: React.FC<Props> = ({ open, setOpen, onSave, task }) => {
       setOpen={setOpen}
       footer={
         <>
-          <Button onClick={handleCancel} type="no-container">
+          <Button onClick={handleCancel} containerType="no-container">
             Cancel
           </Button>
           <Button
             onClick={handleSave}
-            type="filled"
+            containerType="filled"
             disabled={!state.changed || state.hasDescriptionErrors}
           >
             Save
@@ -55,7 +55,7 @@ const TaskEditModal: React.FC<Props> = ({ open, setOpen, onSave, task }) => {
         </>
       }
       header={
-        <Button onClick={handleSave} type="no-container" size="lg">
+        <Button onClick={handleSave} containerType="no-container" size="lg">
           <Icon type="save" />
         </Button>
       }

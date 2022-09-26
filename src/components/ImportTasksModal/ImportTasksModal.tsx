@@ -34,7 +34,7 @@ const ImportTasksModal: React.FC<Props> = ({
       open={open}
       setOpen={setOpen}
       footer={
-        <Button onClick={handleCancel} type="no-container">
+        <Button onClick={handleCancel} containerType="no-container">
           Cancel
         </Button>
       }

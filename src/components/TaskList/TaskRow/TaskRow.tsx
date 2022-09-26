@@ -74,10 +74,18 @@ const TaskRow: React.FC<Props> = ({
       </div>
 
       <div className={styles.actionContainer}>
-        <Button onClick={handleEditClick} type="no-container" size="lg">
+        <Button
+          onClick={handleEditClick}
+          containerType="no-container"
+          size="lg"
+        >
           <Icon type="pencil" />
         </Button>
-        <Button onClick={handleDeleteClick} type="no-container" size="lg">
+        <Button
+          onClick={handleDeleteClick}
+          containerType="no-container"
+          size="lg"
+        >
           <Icon type="trash" />
         </Button>
       </div>

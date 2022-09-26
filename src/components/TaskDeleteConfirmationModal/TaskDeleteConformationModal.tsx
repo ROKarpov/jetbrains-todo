@@ -31,7 +31,7 @@ const TaskDeleteConformationModal: React.FC<Props> = ({
       title="Delete Task"
       footer={
         <>
-          <Button type="outlined" onClick={handleCancelClick}>
+          <Button containerType="outlined" onClick={handleCancelClick}>
             No
           </Button>
           <Button color="danger" onClick={handleConfirmClick}>
