@@ -89,19 +89,21 @@ export const getRelevantItems: (
 ) => TaskStatisticsRelevantDates = (day, items, statisticsType) => {
   const valueGetter = DATE_VALUE_GETTER[statisticsType];
   if (valueGetter === undefined) {
-    throw `DATE_VALUE_GETTER does not contain a proper value for the '${statisticsType}'`;
+    throw new Error(
+      `DATE_VALUE_GETTER does not contain a proper value for the '${statisticsType}'`
+    );
   }
   const targetValue = valueGetter(dayjs(day));
   return {
     completeDates: items
       .map((item) => (item.completeDate ? dayjs(item.completeDate) : null))
-      .filter((date) => date && valueGetter(date) == targetValue)
+      .filter((date) => date && valueGetter(date) === targetValue)
       .map((date) => getOrThrow(date)),
     plannedDates: items
       .map((item) =>
         item.completeDueToDate ? dayjs(item.completeDueToDate) : null
       )
-      .filter((date) => date && valueGetter(date) == targetValue)
+      .filter((date) => date && valueGetter(date) === targetValue)
       .map((date) => getOrThrow(date)),
   };
 };
@@ -112,11 +114,15 @@ export const aggregateDates: (
 ) => TaskStatisticsValue[] = (dates, statisticsType) => {
   const valueGetter = DATE_AGGREGATE_VALUE_GETTER[statisticsType];
   if (valueGetter === undefined) {
-    throw `DATE_AGGREGATE_VALUE_GETTER does not contain a proper value for the '${statisticsType}'`;
+    throw new Error(
+      `DATE_AGGREGATE_VALUE_GETTER does not contain a proper value for the '${statisticsType}'`
+    );
   }
   const indexMapper = INDEX_TO_LABEL_MAPPER[statisticsType];
   if (indexMapper === undefined) {
-    throw `INDEX_TO_LABEL_MAPPER does not contain a proper value for the '${statisticsType}'`;
+    throw new Error(
+      `INDEX_TO_LABEL_MAPPER does not contain a proper value for the '${statisticsType}'`
+    );
   }
 
   const aggregates = new Map<number, number>();
@@ -163,6 +169,6 @@ function getOrThrow<T>(value: T | undefined | null) {
   if (value) {
     return value;
   } else {
-    throw "Impossible case";
+    throw new Error("Impossible case");
   }
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList } from "react-window";
 import styles from "./List.module.scss";

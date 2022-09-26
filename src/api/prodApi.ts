@@ -16,7 +16,7 @@ const createProdToDoListApi: () => ToDoListApi = () => {
   return {
     tasks: (filterType) =>
       new Promise((resolve, reject) => {
-        if (cachedItems == null) {
+        if (cachedItems === null) {
           const itemsString = localStorage.getItem(ITEMS_KEY);
           cachedItems = itemsString ? JSON.parse(itemsString) : [];
         }

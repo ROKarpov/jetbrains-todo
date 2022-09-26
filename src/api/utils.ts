@@ -41,12 +41,12 @@ export const updateToDoItem: (
 
 export const readToDoList: (src: Blob) => Promise<ToDoTask[]> = async (src) => {
   if (src.type !== FILE_TYPE) {
-    throw "Cannot read non-json files.";
+    throw new Error("Cannot read non-json files.");
   }
   const json = await src.text();
   const object = JSON.parse(json);
   if (!isToDoItemArray(object)) {
-    throw "Cannot read a JSON-file that not stores ToDo items.";
+    throw new Error("Cannot read a JSON-file that not stores ToDo items.");
   }
   return object;
 };
@@ -57,7 +57,7 @@ export const writeToDoList: (list: ToDoTask[]) => Blob = (list) => {
 };
 
 export function isToDoItem(object: any): object is ToDoTask {
-  const item = <ToDoTask>object;
+  const item = object as ToDoTask;
   return (
     item.id !== undefined &&
     item.description !== undefined &&

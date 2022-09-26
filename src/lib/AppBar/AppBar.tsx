@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import Icon, { IconType } from "../Icon/Icon";
+import Icon from "../Icon/Icon";
 
 import "./bootstrap.scss";
 import styles from "./AppBar.module.scss";

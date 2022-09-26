@@ -22,7 +22,7 @@ const FileExporter: React.FC<Props> = ({
     () => getFile().then((file) => URL.createObjectURL(file)),
     {
       onSuccess: (url) => {
-        if (linkRef.current == null) return;
+        if (linkRef.current === null) return;
         linkRef.current.href = url;
         linkRef.current.click();
       },
@@ -32,7 +32,13 @@ const FileExporter: React.FC<Props> = ({
   return (
     <>
       {children(exportMutation.isLoading, exportMutation.mutate)}
-      <a ref={linkRef} download={fileName} className={styles.downloadLink}></a>
+      {/* eslint-disable-next-line */}
+      <a
+        ref={linkRef}
+        download={fileName}
+        className={styles.downloadLink}
+        aria-hidden="true"
+      ></a>
     </>
   );
 };

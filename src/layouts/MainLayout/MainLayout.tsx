@@ -6,7 +6,6 @@ import MainLayoutContext, {
 import cn from "classnames";
 
 import styles from "./MainLayout.module.scss";
-import Panel from "../../lib/Panel/Panel";
 import Alert from "../../components/Alert/Alert";
 
 type MainLayoutProps = {

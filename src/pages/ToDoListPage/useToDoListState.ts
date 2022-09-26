@@ -59,7 +59,7 @@ const useToDoListState = (setAlert: (alert: string) => void) => {
       } else if (isTaskInsert(upsert)) {
         return await api.addToDoItem(upsert.changes);
       } else {
-        throw "TaskUpsert has broken data.";
+        throw new Error("TaskUpsert has broken data.");
       }
     },
     {
@@ -78,8 +78,8 @@ const useToDoListState = (setAlert: (alert: string) => void) => {
     },
     {
       onSuccess: () => invalidateQueries(client),
-      onError: (e: string) => {
-        setAlert(e);
+      onError: (e: Error) => {
+        setAlert(e.message);
       },
     }
   );

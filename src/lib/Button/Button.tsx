@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useCallback } from "react";
+import React, { MouseEventHandler } from "react";
 import cn from "classnames";
 
 import "./bootstrap.scss";
