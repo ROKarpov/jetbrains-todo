@@ -18,7 +18,9 @@ const createMockToDoListApi: (initialItems?: ToDoTask[]) => ToDoListApi = (
   return {
     tasks: (filterType) =>
       new Promise((resolve, reject) => {
-        resolve([...items.filter(getTaskFilter(filterType))]);
+        const filter = getTaskFilter(filterType);
+        const result = filter ? items.filter(filter) : items;
+        resolve(result);
       }),
     addToDoItem: (props: ToDoTaskInsertProps) =>
       new Promise((resolve, reject) => {

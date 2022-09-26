@@ -20,7 +20,10 @@ const createProdToDoListApi: () => ToDoListApi = () => {
           const itemsString = localStorage.getItem(ITEMS_KEY);
           cachedItems = itemsString ? JSON.parse(itemsString) : [];
         }
-        resolve([...(cachedItems ?? []).filter(getTaskFilter(filterType))]);
+        const actualItems = cachedItems ?? [];
+        const filter = getTaskFilter(filterType);
+        const result = filter ? actualItems.filter(filter) : actualItems;
+        resolve(result);
       }),
     addToDoItem: (props: ToDoTaskInsertProps) =>
       new Promise((resolve, reject) => {

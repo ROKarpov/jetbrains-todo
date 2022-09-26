@@ -10,7 +10,6 @@ import {
 
 const FILE_TYPE = "application/json";
 
-const DEFAULT_TASK_FILTER = () => true;
 const TASK_FILTERS: { [id: string]: (task: ToDoTask) => boolean } = {
   uncompleted_tasks: (task) => task.completeDate === null,
   completed_tasks: (task) => task.completeDate !== null,
@@ -76,8 +75,6 @@ export function isToDoItemArray(object: any): object is ToDoTask[] {
 
 export const getTaskFilter: (
   filterType?: TaskFilterType
-) => (task: ToDoTask) => boolean = (filterType) => {
-  return filterType
-    ? TASK_FILTERS[filterType] ?? DEFAULT_TASK_FILTER
-    : DEFAULT_TASK_FILTER;
+) => ((task: ToDoTask) => boolean) | null = (filterType) => {
+  return filterType ? TASK_FILTERS[filterType] ?? null : null;
 };
