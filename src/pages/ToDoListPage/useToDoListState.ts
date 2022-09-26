@@ -6,7 +6,7 @@ import {
   QueryClient,
 } from "react-query";
 import api from "../../api/api";
-import { TaskFilterType } from "../../api/types";
+import { TaskFilterType, ToDoTask } from "../../api/types";
 import {
   collectStatistics,
   isTaskInsert,
@@ -33,23 +33,25 @@ const useToDoListState = (
   const [statisticsType, setStatisticsType] =
     useState<TaskStatisticsType>("last-week");
 
-  const tasksQuery = useQuery(
+  const tasksQuery = useQuery<ToDoTask[]>(
     [LIST_QUERY_KEY, filterType],
     () => api.tasks(filterType),
     {
       initialData: [],
       keepPreviousData: true,
+      onSuccess: () => {
+        statisticsQuery.refetch();
+      },
     }
   );
-  const statisticsQuery = useQuery(
+  const statisticsQuery = useQuery<TaskStatistics>(
     [STATISTICS_QUERY_KEY, statisticsType],
     () =>
-      new Promise<TaskStatistics>((resolve, reject) => {
-        resolve(collectStatistics(tasksQuery.data ?? [], statisticsType));
-      }),
+      api
+        .tasks()
+        .then((tasks) => collectStatistics(tasks ?? [], statisticsType)),
     {
-      enabled:
-        tasksQuery.data !== undefined && filterType === "completed_tasks",
+      enabled: filterType === "completed_tasks",
       keepPreviousData: true,
     }
   );
