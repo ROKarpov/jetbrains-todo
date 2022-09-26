@@ -30,8 +30,10 @@ const TaskEditModal: React.FC<Props> = ({ open, setOpen, onSave, task }) => {
     setOpen(false);
   }, [setOpen]);
   useEffect(() => {
-    dispatch({ type: "RESET", payload: task });
-  }, [task]);
+    if (open) {
+      dispatch({ type: "RESET", payload: task });
+    }
+  }, [task, open]);
 
   return (
     <Modal
@@ -54,7 +56,7 @@ const TaskEditModal: React.FC<Props> = ({ open, setOpen, onSave, task }) => {
       }
       header={
         <Button onClick={handleSave} type="no-container" size="lg">
-          <Icon type="file-export" />
+          <Icon type="save" />
         </Button>
       }
     >

@@ -34,9 +34,12 @@ const TaskDeleteConformationModal: React.FC<Props> = ({
           <Button type="outlined" onClick={handleCancelClick}>
             No
           </Button>
-          <Button onClick={handleConfirmClick}>Yes</Button>
+          <Button color="danger" onClick={handleConfirmClick}>
+            Yes
+          </Button>
         </>
       }
+      fullscreenOnMd={false}
     >
       Are you sure want to delete the "{task?.description ?? "No Task"}" task?
     </Modal>

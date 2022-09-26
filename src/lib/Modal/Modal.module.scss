@@ -21,6 +21,10 @@
 }
 
 .footerContainer {
+  @extend .d-flex;
+}
+
+.footerContainerFullscreen {
   @extend .d-none;
   @extend .d-md-flex;
 }

@@ -7,6 +7,7 @@ import { ReactComponent as FileImport } from "bootstrap-icons/icons/file-earmark
 import { ReactComponent as List } from "bootstrap-icons/icons/list.svg";
 import { ReactComponent as Pencil } from "bootstrap-icons/icons/pencil.svg";
 import { ReactComponent as Plus } from "bootstrap-icons/icons/plus-lg.svg";
+import { ReactComponent as Save } from "bootstrap-icons/icons/save.svg";
 import { ReactComponent as Trash } from "bootstrap-icons/icons/trash3.svg";
 
 import styles from "./Icon.module.scss";
@@ -19,6 +20,7 @@ export type IconType =
   | "list"
   | "pencil"
   | "plus"
+  | "save"
   | "trash";
 
 type Props = {
@@ -43,6 +45,8 @@ const Icon: React.FC<Props> = ({ className, type }) => {
       return <List className={resultClassName} />;
     case "plus":
       return <Plus className={resultClassName} />;
+    case "save":
+      return <Save className={resultClassName} />;
     case "trash":
       return <Trash className={resultClassName} />;
     default:

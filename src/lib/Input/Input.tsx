@@ -14,6 +14,7 @@ type Props = {
   hasError?: boolean;
   children?: React.ReactNode;
   className?: string;
+  editClassName?: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
@@ -23,13 +24,13 @@ const Input: React.FC<Props> = ({
   id,
   value,
   className,
+  editClassName,
   label,
   helperText,
   multiline = false,
   readonly = false,
   hasError,
   type = "text",
-  children,
   onChange,
   onFocus,
   onBlur,
@@ -44,12 +45,11 @@ const Input: React.FC<Props> = ({
       placeholder={label}
       value={value}
       isInvalid={hasError}
+      className={editClassName}
       onBlur={onBlur}
       onChange={onChange}
       onFocus={onFocus}
-    >
-      {children}
-    </Form.Control>
+    />
   );
 
   return (

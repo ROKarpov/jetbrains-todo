@@ -80,7 +80,8 @@ const TaskEditForm: React.FC<Props> = ({ state, dispatch }) => {
         label="Comments"
         value={state.comments ?? ""}
         multiline
-        className={styles.comments}
+        className={styles.input}
+        editClassName={styles.comments}
         onChange={handleCommentsChange}
       />
       {state.lastChangeDate && (

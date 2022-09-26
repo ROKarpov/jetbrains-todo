@@ -6,7 +6,6 @@ import Icon, { IconType } from "../Icon/Icon";
 import "./bootstrap.scss";
 import styles from "./Modal.module.scss";
 import { isEmpty } from "../../utils/utils";
-import classNames from "classnames";
 
 export type ModalFooterAction = {
   label: string;
@@ -19,8 +18,6 @@ export type ModalHeaderAction = {
   onClick: () => void;
 };
 
-export type FullscreenBreakpoint = "sm" | "md" | "lg";
-
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -28,7 +25,7 @@ type Props = {
   children: React.ReactNode;
   footer?: React.ReactNode;
   header?: React.ReactNode;
-  fullscreenBreakpoint?: FullscreenBreakpoint;
+  fullscreenOnMd?: boolean;
   bodyClassName?: string;
 };
 
@@ -39,7 +36,7 @@ const Modal: React.FC<Props> = ({
   children,
   footer,
   header,
-  fullscreenBreakpoint = "md",
+  fullscreenOnMd = true,
   bodyClassName,
 }) => {
   const handleModalClose = useCallback(() => setOpen(false), [setOpen]);
@@ -49,9 +46,7 @@ const Modal: React.FC<Props> = ({
   );
   return (
     <BSModal
-      fullscreen={
-        fullscreenBreakpoint ? `${fullscreenBreakpoint}-down` : undefined
-      }
+      fullscreen={fullscreenOnMd ? "md-down" : undefined}
       centered
       show={open}
       onHide={handleModalClose}
@@ -59,7 +54,7 @@ const Modal: React.FC<Props> = ({
       <BSModal.Header
         className={isEmpty(title) ? styles.headerItem : undefined}
       >
-        {fullscreenBreakpoint && (
+        {fullscreenOnMd && (
           <Button
             onClick={handleCloseClick}
             type="no-container"
@@ -72,14 +67,20 @@ const Modal: React.FC<Props> = ({
         {title && (
           <BSModal.Title className={styles.title}>{title}</BSModal.Title>
         )}
-        {fullscreenBreakpoint && header && (
+        {fullscreenOnMd && header && (
           <div className={styles.headerContainer}>{header}</div>
         )}
       </BSModal.Header>
 
       <BSModal.Body className={bodyClassName}>{children}</BSModal.Body>
       {footer && (
-        <BSModal.Footer className={styles.footerContainer}>
+        <BSModal.Footer
+          className={
+            fullscreenOnMd
+              ? styles.footerContainerFullscreen
+              : styles.footerContainer
+          }
+        >
           {footer}
         </BSModal.Footer>
       )}
